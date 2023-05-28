@@ -1,3 +1,24 @@
-kitDeSeguridad01 1 04/06/2021 kitDeSeguridad04 1 deMano02
-Libro1 456 7/5/345 nose 3.345 1
-libro2 23232 12/12/2013 tampoco 4543 nomegustó
+Libro1 456 07/05/345 www.ejemplo1.com 3.345 ciencia CIENCIA_FICCION
+Libro2 23232 12/12/2013 www.ejemplo2.com 4543 divertido FANTASÍA
+Libro3 789 19/02/2022 www.ejemplo3.com 2.345 sinTitulo CIENCIA_FICCION
+Libro4 1234 28/11/2020 www.ejemplo4.com 9.876 emocionante FANTASÍA
+Libro5 5678 03/04/2015 www.ejemplo5.com 3.1416 sorprendente NOVELA_HISTÓRICA
+Libro6 9876 22/07/2019 www.ejemplo6.com 5.678 misterio FANTASÍA
+Libro7 5432 14/03/2017 www.ejemplo7.com 2.718 fascinante FANTASÍA
+Libro8 9876 20/05/2014 www.ejemplo8.com 4.567 intrigante NOVELA_HISTÓRICA
+Libro9 2468 01/01/2023 www.ejemplo9.com 1.234 sinNombre CIENCIA_FICCION
+Libro10 1357 09/09/2018 www.ejemplo10.com 6.789 cautivador NOVELA_HISTÓRICA
+Libro11 8642 25/06/2016 www.ejemplo11.com 0.123 inspirador FANTASÍA
+Libro12 9753 05/07/2021 www.ejemplo12.com 7.654 aventura NOVELA_HISTÓRICA
+Libro13 5432 11/10/2022 www.ejemplo13.com 2.345 divertido CIENCIA_FICCION
+Libro14 2468 30/03/2019 www.ejemplo14.com 5.678 educativo FANTASÍA
+Libro15 7890 02/06/2015 www.ejemplo15.com 1.234 clásico CIENCIA_FICCION
+Libro16 1234 19/11/2023 www.ejemplo16.com 3.456 contemporáneo CIENCIA_FICCION
+Libro17 5678 10/08/2017 www.ejemplo17.com 6.789 misterioso FANTASÍA
+Libro18 8642 26/09/2020 www.ejemplo18.com 2.345 emocionante NOVELA_HISTÓRICA
+Libro19 9753 13/12/2016 www.ejemplo19.com 4.567 inspirador NOVELA_HISTÓRICA
+Libro20 1357 07/07/2014 www.ejemplo20.com 8.901 aventura FANTASÍA
+Libro21 5432 25/01/2021 www.ejemplo21.com 3.456 romántico NOVELA_HISTÓRICA
+Libro22 2468 18/04/2018 www.ejemplo22.com 7.890 histórico FANTASÍA
+Libro23 7890 06/09/2013 www.ejemplo23.com 2.345 misterio CIENCIA_FICCION
+Libro24 1234 14/02/2019 www.ejemplo24.com 5.678 suspenso NOVELA_HISTÓRICA

@@ -38,6 +38,15 @@ public class Library {
 	}
 	
 	
+	public boolean eliminarProducto(String id) {
+	    for (BibliographicProduct producto : coleccionProductos) {
+	        if (producto.getId().equals(id)) {
+	            coleccionProductos.remove(producto);
+	            return true;
+	        }
+	    }
+	    return false;
+	}
 
 	
 

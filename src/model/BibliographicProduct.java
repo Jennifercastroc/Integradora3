@@ -42,7 +42,7 @@ public abstract class BibliographicProduct implements Fecha {
 	
 	public String calendarToString(Calendar fecha) {
 		String a;
-		a=formatoFecha.format(fecha.getTime());;
+		a=formatoFecha.format(fecha.getTime());; 
 		return a;
 	};
 	
@@ -50,71 +50,64 @@ public abstract class BibliographicProduct implements Fecha {
 	
 
 
+
+
+
 	public String getId() {
 		return id;
 	}
 
-	
+	public void setId(String id) {
+		this.id = id;
+	}
+
 	public String getName() {
 		return name;
 	}
 
-
-
-
-	public void setName(String name) { 
+	public void setName(String name) {
 		this.name = name;
 	}
-
-
-
 
 	public int getNumbPages() {
 		return numbPages;
 	}
 
-
+	public void setNumbPages(int numbPages) {
+		this.numbPages = numbPages;
+	}
 
 	public Calendar getPublicationDate() {
 		return publicationDate;
 	}
 
-
-
-
 	public void setPublicationDate(Calendar publicationDate) {
 		this.publicationDate = publicationDate;
 	}
-
-
-
 
 	public String getUrl() {
 		return url;
 	}
 
-
-
-
 	public void setUrl(String url) {
 		this.url = url;
 	}
-
-
-
 
 	public double getPrize() {
 		return prize;
 	}
 
-
-
-
 	public void setPrize(double prize) {
 		this.prize = prize;
 	}
 
+	public SimpleDateFormat getFormatoFecha() {
+		return formatoFecha;
+	}
 
+	public void setFormatoFecha(SimpleDateFormat formatoFecha) {
+		this.formatoFecha = formatoFecha;
+	}
 
 	@Override
 	public String toString() {

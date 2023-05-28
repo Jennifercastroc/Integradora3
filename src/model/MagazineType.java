@@ -1,6 +1,6 @@
 package model;
 
-enum MagazineType {
+public enum MagazineType {
 	VARIEDAD,
 	DISEÑO,
 	CIENTÍFICA

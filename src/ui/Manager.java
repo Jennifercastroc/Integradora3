@@ -11,6 +11,7 @@ import java.util.Scanner;
 import model.*;
 
 public class Manager {
+	static Scanner inFile; 
 	static ArrayList<BibliographicProduct> coleccionProductos = new ArrayList<BibliographicProduct>();
 	static ArrayList<User> usuarios = new ArrayList<User>();
 
@@ -34,16 +35,18 @@ public class Manager {
 	        double precio = Double.parseDouble(inFile.next());
 	        /**the next String is initialize as "dato", después se verifica que se pueda convertir a int,
 	          si es así se crea un elemento Magazine, ya que eso significaría la periodicdad de emisión**/
-	        String dato=inFile.next();  
+	        String dato=inFile.next();
+	        String tipoString = inFile.next();
 	        try {
 	        	int periodicidad= Integer.parseInt(dato);
-	        	coleccionProductos.add(new Magazine(titulo, codigo, publicationDate, autor, precio, periodicidad));
+	        	MagazineType productType = MagazineType.valueOf(tipoString.toUpperCase());
+	        	coleccionProductos.add(new Magazine(titulo, codigo, publicationDate, autor, precio, periodicidad, productType));
 	        } catch (NumberFormatException e) {
-	        	coleccionProductos.add(new Book(titulo, codigo, publicationDate, autor, precio, dato));
+	        	BookType productType = BookType.valueOf(tipoString.toUpperCase());
+	        	coleccionProductos.add(new Book(titulo, codigo, publicationDate, autor, precio, dato, productType));
 	        
 	            continue;
-	        }
-	        
+	        } 
 	    }
 	}
 	public static void leeUsuarios(ArrayList<User> usuarios) throws FileNotFoundException {
@@ -70,22 +73,12 @@ public class Manager {
 		// System.out.println(herramientas);
 		Library ReadX = new Library("ReadX", usuarios, coleccionProductos);
 		
-		/*Esto es para probar que el sistema esté funcioannado correctamente
-		 *  
-		 * 
-		 * */
-		System.out.println(Library.coleccionProductos);
-		System.out.println(Library.usuarios);
-		
-		System.out.println("matriz");
-		System.out.println(User.imprime(User.soldProducts));
-		
 		 
 		
 		Scanner scanner = new Scanner(System.in);
 
 		System.out.println("1.Registrar un Producto bibliográfico"
-				+ "\n 2.Registrar Usuario");
+				+ "\n 2.Registrar Usuario" + "\n 3. Eliminar producto bibliográfico");
 		int option = Integer.parseInt(scanner.nextLine());
 
 		if (option == 1) {
@@ -108,7 +101,6 @@ public class Manager {
 
 				SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
 				formatoFecha.setLenient(false);
-
 				try {
 				    Calendar publicationDate = Calendar.getInstance();
 				    publicationDate.setTime(formatoFecha.parse(fecha));
@@ -116,14 +108,27 @@ public class Manager {
 				    if (type.equalsIgnoreCase("L")) {
 						System.out.println("Ingrese la reseña de su producto: ");
 						String review = scanner.nextLine();
-					    Book book = new Book(name, numbPages, publicationDate, url, prize, review);
+						System.out.println("Ingrese la categoría de su producto: CIENCIA_FICCION,\r\n"
+								+ "	FANTASÍA,\r\n"
+								+ "	NOVELA_HISTÓRICA)");
+						String tipoString = scanner.nextLine();
+			                BookType productType = BookType.valueOf(tipoString.toUpperCase());
+					    Book book = new Book(name, numbPages, publicationDate, url, prize, review, productType);
 					    Library.coleccionProductos.add(book); // Acceder directamente al ArrayList estático
 					    System.out.println(book);
 					} else if (type.equalsIgnoreCase("R")) {
-					    // Create a Magazine object and perform operations
-					    Magazine magazine = new Magazine(name, numbPages, publicationDate, url, prize, 6);
+						System.out.println("Ingrese la periodicidad de su producto: ");
+						String periodo = scanner.nextLine();
+						int periodicidad= Integer.parseInt(periodo);
+						System.out.println("Ingrese la categoría de su producto: (VARIEDAD,\r\n"
+								+ "	DISEÑO,\r\n"
+								+ "	CIENTÍFICA)");
+						String tipoString = scanner.nextLine();
+						MagazineType categoria = MagazineType.valueOf(tipoString.toUpperCase());
+					    Magazine magazine = new Magazine(name, numbPages, publicationDate, url, prize, periodicidad,categoria);
 					    Library.coleccionProductos.add(magazine);
 					    System.out.println(magazine);
+					    System.out.println(Library.coleccionProductos);
 					} else {
 					    System.out.println("Tipo de producto inválido.");
 					}
@@ -131,10 +136,111 @@ public class Manager {
 				    System.out.println("Fecha inválida. Por favor, ingrese una fecha en el formato dd/MM/yyyy.");
 				}
 
-			}
-		} else {
-			System.out.println("Opción inválida.");
-		}
+			} 
+		} else if (option == 2) {
+            System.out.println("Es un usuario Regular (R) o Premium (P)?");
+            String userType = scanner.nextLine();
+            System.out.println("Ingrese el nombre del usuario: ");
+            String nombre = scanner.nextLine();
+            System.out.println("Ingrese el apellido del usuario: ");
+            String apellido = scanner.nextLine();
+
+            if (userType.equalsIgnoreCase("R")) {
+                usuarios.add(new Regular(nombre, apellido));
+                System.out.println("Usuario Regular registrado exitosamente.");
+            } else if (userType.equalsIgnoreCase("P")) {
+                usuarios.add(new Premium(nombre, apellido));
+                System.out.println("Usuario Premium registrado exitosamente.");
+            } else {
+                System.out.println("Tipo de usuario inválido.");
+            }
+        } else if (option == 3) {
+            // Eliminar un Producto bibliográfico
+            System.out.println("Ingrese el ID del producto a eliminar: ");
+            String nombreProducto = scanner.nextLine();
+            boolean eliminado = ReadX.eliminarProducto(nombreProducto);
+            if (eliminado) {
+                System.out.println("Producto eliminado correctamente.");
+            } else {
+                System.out.println("No se encontró un producto con el ID especificado.");
+            }
+    } else if (option == 4) {
+        // Modificar un Producto bibliográfico
+    	System.out.println("Ingrese el ID del producto a modificar: ");
+    	String idProducto = scanner.nextLine();
+
+    	boolean modificado = false;
+    	for (BibliographicProduct producto : ReadX.getColeccionProductos()) {
+    	    if (producto.getId().equalsIgnoreCase(idProducto)) {
+    	        System.out.println("Ingrese el nuevo título del producto: ");
+    	        String nuevoTitulo = scanner.nextLine();
+    	        System.out.println("Ingrese el nuevo número de páginas del producto: ");
+    	        int nuevoNumeroPaginas = Integer.parseInt(scanner.nextLine());
+    	        System.out.println("Ingrese la nueva fecha de publicación del producto (dd/MM/yyyy): ");
+    	        String nuevaFecha = scanner.nextLine();
+    	        System.out.println("Ingrese el nuevo autor del producto: ");
+    	        String nuevoAutor = scanner.nextLine();
+    	        System.out.println("Ingrese el nuevo precio del producto: ");
+    	        double nuevoPrecio = Double.parseDouble(scanner.nextLine());
+    	        System.out.println("Ingrese el nuevo tipo de producto (L para libro, R para revista): ");
+    	        String nuevoTipoProducto = scanner.nextLine();
+
+    	        producto.setName(nuevoTitulo);
+    	        producto.setNumbPages(nuevoNumeroPaginas);
+    	        try {
+    	            SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
+    	            formatoFecha.setLenient(false);
+    	            Calendar nuevaFechaPub = Calendar.getInstance();
+    	            nuevaFechaPub.setTime(formatoFecha.parse(nuevaFecha));
+    	            producto.setPublicationDate(nuevaFechaPub);
+    	        } catch (ParseException e) {
+    	            System.out.println("Fecha inválida. No se modificó la fecha de publicación.");
+    	        }
+    	        producto.setUrl(nuevoAutor);
+    	        producto.setPrize(nuevoPrecio);
+
+    	        if (nuevoTipoProducto.equalsIgnoreCase("L")) {
+    	            if (producto instanceof Book) {
+    	                System.out.println("Ingrese la nueva reseña del libro: ");
+    	                String nuevaResena = scanner.nextLine();
+    	                System.out.println("Ingrese la nueva categoría del libro (CIENCIA_FICCION, FANTASÍA, NOVELA_HISTÓRICA): ");
+    	                String nuevaCategoria = scanner.nextLine();
+    	                BookType nuevoTipoLibro = BookType.valueOf(nuevaCategoria.toUpperCase());
+    	                ((Book) producto).setReview(nuevaResena);
+    	                ((Book) producto).setBookType(nuevoTipoLibro);
+    	            } else {
+    	                System.out.println("El producto no es un libro. No se modificaron la reseña ni la categoría.");
+    	            }
+    	        } else if (nuevoTipoProducto.equalsIgnoreCase("R")) {
+    	            if (producto instanceof Magazine) {
+    	                System.out.println("Ingrese la nueva periodicidad de la revista: ");
+    	                int nuevaPeriodicidad = Integer.parseInt(scanner.nextLine());
+    	                System.out.println("Ingrese la nueva categoría de la revista (VARIEDAD, DISEÑO, CIENTÍFICA): ");
+    	                String nuevaCategoria = scanner.nextLine();
+    	                MagazineType nuevoTipoRevista = MagazineType.valueOf(nuevaCategoria.toUpperCase());
+    	                ((Magazine) producto).setPeriodicBroadcast(nuevaPeriodicidad);
+    	                ((Magazine) producto).setMagazineType(nuevoTipoRevista);
+    	            } else {
+    	                System.out.println("El producto no es una revista. No se modificaron la periodicidad ni la categoría.");
+    	            }
+    	        } else {
+    	            System.out.println("Tipo de producto inválido. No se modificó el tipo de producto.");
+    	        }
+
+    	        modificado = true;
+    	        break;
+    	    }
+    	}
+
+    	if (modificado) {
+    	    System.out.println("Producto modificado correctamente.");
+    	} else {
+    	    System.out.println("No se encontró un producto con el ID especificado.");
+    	}} else {
+            System.out.println("Opción inválida.");
+        }
+
+        System.out.println(ReadX.getColeccionProductos());
 		System.out.println(Library.coleccionProductos);
 	
 	}
