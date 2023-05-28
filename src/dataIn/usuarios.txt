@@ -1,0 +1,24 @@
+R mariana
+1234
+P valeria
+453
+R rafaela
+2444
+R celeste
+3432
+P gladys
+344334
+R karen
+3433
+P juandavid
+23324
+P daniel
+343223
+R michell
+2232
+R jennifer
+44332
+P nicol
+33433
+R sofia 
+323434
